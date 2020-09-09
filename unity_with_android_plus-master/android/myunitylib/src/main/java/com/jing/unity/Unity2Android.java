@@ -1,8 +1,15 @@
 package com.jing.unity;
 
+import android.Manifest;
 import android.app.Activity;
+import android.app.AppOpsManager;
+import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Environment;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -16,7 +23,9 @@ import java.io.InputStreamReader;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by Jing on 2018-1-18.
@@ -162,9 +171,24 @@ public class Unity2Android {
 
     }
 
+
+    public  void GetAut()
+    {
+        PermissionTool.Request(getActivity());
+
+    }
+
+    String permissionName = "android.permission.WRITE_EXTERNAL_STORAGE";
+
+    public static boolean hasPermission(Context context, String permission){
+        int perm = context.checkCallingOrSelfPermission(permission);
+        return perm == PackageManager.PERMISSION_GRANTED;
+    }
+
     public void FileCopy(String fileName,String newPath)
     {
-        copyFile(Environment.getExternalStorageDirectory().getAbsolutePath() + "/Android/data/io.dcloud.HBuilder/apps/HBuilder/downloads/"+fileName,newPath);
+
+        copyFile(Environment.getExternalStorageDirectory().getAbsolutePath() + "/Android/data/com.justtruth.gsbim/downloads/"+fileName,newPath);
 
     }
     public void JsonCopy(String fileName,String newPath)
@@ -245,8 +269,6 @@ public class Unity2Android {
         }
         return content;
     }
-
-
 
 
 
